@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Exit if any subcommand fails
+set -e
+
+if ! command -v npm > /dev/null; then
+  println "NPM not found. Installation instructions: https://github.com/creationix/nvm"
+else
+  npm install
+fi
+
+# Only if this isn't CI
+# if [ -z "$CI" ]; then
+# fi
