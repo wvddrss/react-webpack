@@ -1,5 +1,5 @@
 import toggleAuth from '../utilities/authenticator';
-import { SET_USER } from '../constants/action-types';
+import { LOGIN_USER, SET_USER } from '../constants/action-types';
 import { pushPath } from 'redux-simple-router';
 import setFlash from './flash';
 
@@ -11,7 +11,6 @@ export function signUpUser(submittedUser) {
      dispatch(pushPath('/login'));
 
     }).fail( resp => {
-
       dispatch(setFlash('danger', resp.data.errors.full_messages.join('<br/>')));
 
     });
@@ -20,10 +19,23 @@ export function signUpUser(submittedUser) {
 
 export function loginUser(loginUser) {
   return dispatch => {
-    debugger;
+    toggleAuth.emailSignIn(loginUser).then( resp => {
+
+      dispatch(_loginUser());
+      dispatch(setUser(resp.data));
+      dispatch(setFlash('success', 'Succesfully loggedin'));
+      dispatch(pushPath('/sandbox'));
+
+    }).fail( resp => {
+      dispatch(setFlash('danger', resp.data.errors.join('<br/>')));
+    });
   };
 }
 
+export function _loginUser() {
+  return { type: LOGIN_USER };
+}
+
 export function setUser(user) {
-  return { action: SET_USER, user };
+  return { type: SET_USER, user };
 }

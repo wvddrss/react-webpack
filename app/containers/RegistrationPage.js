@@ -1,5 +1,4 @@
 import React from 'react';
-import { reduxForm } from 'redux-form';
 import RegistrationForm from '../components/RegistrationForm';
 
 export default React.createClass({

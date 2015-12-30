@@ -4,7 +4,6 @@ import { signUpUser } from '../action-creators/user';
 import { Link } from 'react-router'
 import Alert from './shared/Alert';
 
-
 const fields = ['first_name', 'last_name', 'email', 'password', 'password_confirmation'];
 const validate = values => {
   const errors = {};
@@ -87,7 +86,7 @@ const registrationForm = React.createClass({
           <input type='password' name='password_confirmation' ref='password_confirmation' className='form-control' id='password_confirmation' placeholder='Password Confirmation' {...password_confirmation} />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
-        <Link to="/" className="btn btn-default">Back</Link>
+        <Link to="/login" className="btn btn-default">Back</Link>
       </form>
     )
   },

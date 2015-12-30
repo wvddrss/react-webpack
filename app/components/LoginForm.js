@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import { reduxForm } from 'redux-form';
 import { loginUser } from '../action-creators/user';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import Alert from './shared/Alert';
 
 const fields = ['email', 'password'];
 const validate = values => {
@@ -27,18 +28,26 @@ const loginForm = React.createClass({
       fields: {email, password},
       handleSubmit,
     } = this.props;
+
     return (
       <div className='row animated fadeIn'>
         <form className='col-md-6 col-md-offset-3' onSubmit={handleSubmit(this._handleSubmit)}>
           <h2>Login</h2>
-          <div className={`form-group ${email.touched && email.error ? 'has-error' : ''}`}>
-            <input type='text' name='email' ref='email' id='email' className='form-control' placeholder='Email' />
+
+          <Alert flash={this.props.flash} />
+
+          <div className={`form-group `}>
+
+            {email.touched && email.error && <label className='control-label' forHtml='email'>{email.error}</label>}
+
+            <input type='text' name='email' ref='email' id='email' className='form-control' placeholder='Email' {...email} />
           </div>
 
-          <div className={`form-group ${password.touched && password.error ? 'has-error' : ''}`}>
+          <div className={`form-group`}>
 
-            <input type='password' name='password' ref='password' id='password' className='form-control' placeholder='Password' />
+            {password.touched && password.error && <label className='control-label' forHtml='password'>{password.error}</label>}
 
+            <input type='password' name='password' ref='password' id='password' className='form-control' placeholder='Password' {...password} />
           </div>
 
           <input type='submit' className='btn btn-primary' value='Login' />
@@ -48,13 +57,12 @@ const loginForm = React.createClass({
     )
   },
   _handleSubmit(user) {
-    debugger;
     this.props.dispatch(loginUser(user));
   }
 });
 
 export default reduxForm({
-  form: 'login',
+  form: 'loginForm',
   fields,
   validate
 })(loginForm);
