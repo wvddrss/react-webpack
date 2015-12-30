@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {reduxForm} from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { signUpUser } from '../action-creators/user';
 
 const fields = ['first_name', 'last_name', 'email', 'password', 'password_confirmation'];
@@ -7,20 +7,30 @@ const validate = values => {
   const errors = {};
 
   if(!values.first_name) {
-    errors.first_name = "First name is required"
+    errors.first_name = 'First name is required'
   }
 
   if(!values.last_name) {
-    errors.first_name = "Last name is required"
+    errors.last_name = 'Last name is required'
   }
 
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = 'Email is required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
   }
 
-  if(!values.password == values.password_confirmation) {
+  if(!values.password)
+  {
+    errors.password = 'Password is required';
+  }
+
+
+  if(!values.password_confirmation)
+  {
+    errors.password_confirmation = 'Password confirmation is required';
+  }
+  else if(values.password != values.password_confirmation) {
     errors.password_confirmation = 'Password confirmation must match password'
   }
 
@@ -31,38 +41,51 @@ const registrationForm = React.createClass({
   render() {
     const {
       fields: {first_name, last_name, email, password, password_confirmation },
-      resetForm,
+      handleSubmit,
     } = this.props;
     return (
-      <form className="col-md-6 col-md-offset-3" onSubmit={this._handleSubmit}>
+      <form className='col-md-6 col-md-offset-3' onSubmit={handleSubmit(this._handleSubmit)}>
         <h2>Registration</h2>
-        <div className="form-group">
-          <input name="first_name" className="form-control" placeholder="First name" {...first_name} />
+        <div className={`form-group ${first_name.touched && first_name.error ? 'has-error' : ''}`}>
+
+          {first_name.touched && first_name.error && <label className='control-label' for='first_name'>{first_name.error}</label>}
+
+          <input name='first_name' className='form-control' placeholder='First name' id='first_name' {...first_name} />
         </div>
 
-        <div className="form-group">
-          <input name="last_name" className="form-control" placeholder="Last name" {...last_name} />
+        <div className={`form-group ${last_name.touched && last_name.error ? 'has-error' : ''}`}>
+
+          {last_name.touched && first_name.error && <label className='control-label' for='last_name'>{last_name.error}</label>}
+
+          <input name='last_name' className='form-control' placeholder='Last name' id='last_name' {...last_name} />
         </div>
 
-        <div className="form-group">
-          <input type="text" name="email" ref="email" className="form-control" placeholder="Email" {...email} />
+        <div className={`form-group ${email.touched && email.error ? 'has-error' : ''}`}>
+
+          {email.touched && email.error && <label className='control-label' for='email'>{email.error}</label>}
+
+          <input type='text' name='email' ref='email' className='form-control' id='email' placeholder='Email' {...email} />
         </div>
 
-        <div className="form-group">
-          <input type="password" name="password" ref="password" className="form-control" placeholder="Password" {...password} />
+        <div className={`form-group ${password.touched && password.error ? 'has-error' : ''}`}>
+
+          {password.touched && password.error && <label className='control-label' for='password'>{password.error}</label>}
+
+          <input type='password' name='password' ref='password' className='form-control' id='password' placeholder='Password' {...password} />
         </div>
 
-        <div className="form-group">
-          <input type="password" name="password_confirmation" ref="password_confirmation" className="form-control" placeholder="Password Confirmation" {...password_confirmation} />
+        <div className={`form-group ${password_confirmation.touched && password_confirmation.error ? 'has-error' : ''}`}>
+
+          {password_confirmation.touched && password_confirmation.error && <label className='control-label' for='password_confirmation'>{password_confirmation.error}</label>}
+
+          <input type='password' name='password_confirmation' ref='password_confirmation' className='form-control' id='password_confirmation' placeholder='Password Confirmation' {...password_confirmation} />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type='submit' className='btn btn-primary' value='Register' />
       </form>
     )
   },
-  _handleSubmit(e) {
-    e.preventDefault();
-    const formValues = this.props.values;
-    this.props.dispatch(signUpUser(formValues));
+  _handleSubmit(user) {
+    this.props.dispatch(signUpUser(user));
   }
 });
 

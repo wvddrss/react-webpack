@@ -5,7 +5,7 @@ import RegistrationForm from '../components/RegistrationForm';
 export default React.createClass({
   render() {
     return (
-      <div className="row">
+      <div className="row animated fadeIn">
         <RegistrationForm />
       </div>
     );

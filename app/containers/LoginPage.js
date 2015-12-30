@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 export default React.createClass({
   render() {
     return (
-      <div className="row">
+      <div className="row animated fadeIn">
         <form className="col-md-6 col-md-offset-3">
           <h2>Login</h2>
 

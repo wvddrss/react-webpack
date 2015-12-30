@@ -9,13 +9,11 @@ import { Provider } from 'react-redux';
 import store from './store';
 import toggleAuth from './utilities/authenticator';
 
-var test = store;
-
 export default (
   <Provider store={store}>
     <Router>
-      <Route path="/login" component={Login} />
       <Route path="/" component={App} >
+        <Route path="login" component={Login} />
         <Route path="registration" component={Registration} />
         <Route path="sandbox" component={Sandbox} />
         <Route path="*" component={NotFound} />
