@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { reduxForm } from 'redux-form';
 import { signUpUser } from '../action-creators/user';
 import { Link } from 'react-router'
+import Alert from './shared/Alert';
+
 
 const fields = ['first_name', 'last_name', 'email', 'password', 'password_confirmation'];
 const validate = values => {
@@ -40,14 +42,17 @@ const validate = values => {
 
 const registrationForm = React.createClass({
   render() {
+
     const {
       fields: {first_name, last_name, email, password, password_confirmation },
       handleSubmit,
     } = this.props;
+
     return (
       <form className='col-md-6 col-md-offset-3' onSubmit={handleSubmit(this._handleSubmit)}>
         <h2>Registration</h2>
         <div className={`form-group ${first_name.touched && first_name.error ? 'has-error' : ''}`}>
+          <Alert flash={this.props.flash} />
 
           {first_name.touched && first_name.error && <label className='control-label' forHtml='first_name'>{first_name.error}</label>}
 

@@ -8,7 +8,7 @@ export function signUpUser(submittedUser) {
     toggleAuth.emailSignUp(submittedUser).then( user => {
 
      dispatch(setFlash('success', 'User succesfully created'));
-     dispatch(pushPath('/'));
+     dispatch(pushPath('/login'));
 
     }).fail( resp => {
 
