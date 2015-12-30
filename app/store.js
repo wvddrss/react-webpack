@@ -12,7 +12,7 @@ const store = compose(
   devTools()
 )(createStore)(rootReducer);
 
-const history = createHistory()
+export const history = createHistory()
 
 syncReduxAndRouter(history, store)
 
