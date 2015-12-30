@@ -6,9 +6,5 @@ export default React.createClass({
     return (
       <h1>Home</h1>
     );
-  },
-  componentDidMount() {
-    this.props.dispatch(setFlashMessage('danger', 'This is a message from me to you. Redux rocks!'));
-
   }
 });

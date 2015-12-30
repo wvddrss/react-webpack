@@ -15,8 +15,8 @@ export default (
   <Provider store={store}>
     <Router>
       <Route path="/login" component={Login} />
-      <Route path="/registration" component={Registration} />
       <Route path="/" component={App} >
+        <Route path="registration" component={Registration} />
         <Route path="sandbox" component={Sandbox} />
         <Route path="*" component={NotFound} />
       </Route>

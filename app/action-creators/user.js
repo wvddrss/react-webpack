@@ -1,14 +1,13 @@
 import toggleAuth from '../utilities/authenticator';
 import { SET_USER } from '../constants/action-types';
+import setFlash from './flash';
 
-export function loginUser(submittedUser) {
+export function signUpUser(submittedUser) {
   return dispatch => {
     toggleAuth.emailSignUp(submittedUser).then( user => {
-      // SET user
-      debugger;
-      return setUser(user);
+     dispatch(setFlash('success', 'User succesfully created'));
     }).fail( resp => {
-      // Set flash message
+      dispatch(setFlash('danger', resp.reason));
     });
   };
 };
