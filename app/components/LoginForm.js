@@ -36,14 +36,14 @@ const loginForm = React.createClass({
 
           <Alert flash={this.props.flash} />
 
-          <div className={`form-group `}>
+          <div className={`form-group ${email.touched && email.error ? 'has-error' : ''}`}>
 
             {email.touched && email.error && <label className='control-label' forHtml='email'>{email.error}</label>}
 
             <input type='text' name='email' ref='email' id='email' className='form-control' placeholder='Email' {...email} />
           </div>
 
-          <div className={`form-group`}>
+          <div className={`form-group ${password.touched && password.error ? 'has-error' : ''}`}>
 
             {password.touched && password.error && <label className='control-label' forHtml='password'>{password.error}</label>}
 

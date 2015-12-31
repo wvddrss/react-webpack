@@ -14,11 +14,16 @@ export default (
     <Router history={history} >
       <Route path='/login' component={Login} />
       <Route path='/registration' component={Registration} />
-      <Route path='/' component={App} >
-        <Route path='sandbox' component={Sandbox} />
+      <Route path='/' component={App} onEnter={requireAuth}>
+        <IndexRoute component={Sandbox} />
         <Route path='*' component={NotFound} />
       </Route>
     </Router>
   </Provider>
 );
 
+function requireAuth(nextState, transition) {
+  if(!store.getState().currentUser.get('loggedIn')) {
+    transition('', '/login', '');
+  }
+}
