@@ -17,10 +17,5 @@ export default React.createClass({
     }else {
       return null;
     }
-  },
-  componentWillReceiveProps() {
-    setTimeout(() => {
-      this.props.dispatch(removeFlashMessage());
-    }, 5000);
   }
 });
